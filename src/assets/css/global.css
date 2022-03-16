@@ -1,0 +1,53 @@
+#app {
+  background: url('../bground.jpg') no-repeat;
+  background-size: cover;
+  background-position: fixed;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+.common-hover {
+  transition: 0.3s all;
+}
+.common-hover:hover {
+  background-color: rgb(97, 147, 187) !important;
+}
+.dark-mode {
+  --primary-bg: #282c35;
+  --primary-fg: #fff;
+  --secondary-bg: #1e2129;
+  --secondary-fg: #aaa;
+  --primary-btn-bg: #ddd;
+  --primary-btn-fg: #222;
+  --secondary-btn-bg: #780404;
+  --secondary-btn-fg: #baba6a;
+  --image-opacity: 0.85;
+}
+
+@media (min-width: 640px) { 
+  html {
+    font-size: 16px;
+  }  
+}
+/* @media (min-width: 768px) { 
+  html {
+    font-size: 34px;
+  }
+} */
+/* @media (min-width: 1024px) { 
+  html {
+    font-size: 50px;
+  }
+} */
+/* @media (min-width: 1280px) { 
+  html {
+    font-size: 67px;
+  }  
+}
+@media (min-width: 1536px) { 
+  html {
+    font-size: 100px;
+  }
+} */
