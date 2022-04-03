@@ -1,40 +1,114 @@
 <template>
   <div>
-    <header class="header flex flex-col select-none h-100vh w-full justify-between">
-      <nav class="navBar">
-        <h3>
-          <img src="../../public/logo.jpg" alt />
-          peyton的个人主页
-        </h3>
-        <div class="menu-select">
-          <nav-box
-            class="menu-select-box"
-            v-for="(item, index) in navList"
-            :key="index"
-            :id="item.id"
-            :navName="item.name"
-            :navPath="item.path"
-          ></nav-box>
-          <nav-box class="menu-select-box iconfont icon-moonbyueliang" @click="setThemeMode"></nav-box>
+    <main id="home" class="flex flex-col select-none h-100vh w-full justify-between">
+      <div class="h-15 w-full"></div>
+      <header class="w-full h-15 fixed bg-white/10 z-20">
+        <div class="w-4/5 mx-auto flex h-full justify-between items-center">
+          <h3 class="w-10 h-10 rounded-lg overflow-hidden" style="font-size: 0;">
+            <img class="w-full h-full" src="./../assets/logo.jpg" alt />
+            peyton的个人主页
+          </h3>
+          <nav class="flex justify-between items-center space-x-8">
+            <nav-box
+              class
+              v-for="(item, index) in navList"
+              :key="index"
+              :id="item.id"
+              :navName="item.name"
+              :navContainer="item.container"
+            ></nav-box>
+            <nav-box
+              class="iconfont"
+              :class="isDark ? 'icon-moonbyueliang' : 'icon-ai250'"
+              @click="setThemeMode"
+            ></nav-box>
+          </nav>
         </div>
-      </nav>
-      <article class="article">
-        <h3>Peyton的个人小站</h3>
-        <p>{{ poem.content }}</p>
+      </header>
+      <article class="text-center">
+        <h3 class="text-3xl">Peyton的个人小站</h3>
+        <p>/*{{ poem.content }}*/</p>
       </article>
-      <footer class="fotterJump">
-        <i class="iconfont icon-xiangxia"></i>
+      <footer class="text-center hover:text-white">
+        <i
+          class="text-4xl iconfont text-white/30 hover:text-white icon-xiangxia"
+          @click="scrollToNext"
+        ></i>
       </footer>
-    </header>
+    </main>
+    <article
+      id="about"
+      class="w-full py-17 flex flex-col overflow-hidden space-y-3 items-center bg-white select-none text-black"
+    >
+      <section class="text-4xl">关于本站</section>
+      <section class="w-30 h-1 bg-green-500 rounded-sm space-y-4"></section>
+      <setion class="flex flex-col text-sm items-center space-y-3">
+        <p>我是黎培旭，也叫Peyton</p>
+        <p>一个前端开发初学者</p>
+        <p>想在此留下自己的足迹</p>
+        <p>分享自己浅薄的知识</p>
+        <p>热爱前端，热爱代码</p>
+        <p>期待自己有着不一样的建树</p>
+      </setion>
+    </article>
+    <article
+      id="share"
+      class="w-full bg-stone-200 py-17 flex flex-col overflow-hidden items-center text-black select-none"
+    >
+      <section class="text-4xl">分享</section>
+      <section class="w-10 h-1 bg-green-500 rounded-sm mt-5"></section>
+      <section class="w-4/5 mt-5 flex flex-wrap justify-center overflow-hidden">
+        <share-box
+          v-for="(item, index) in shareList"
+          :key="index"
+          :id="item.id"
+          :shareName="item.name"
+          :shareImg="item.imgPath"
+          :shareIntroduce="item.introduce"
+          :shareTips="item.tips"
+          :sharePath="item.path"
+        ></share-box>
+      </section>
+    </article>
+    <article
+      id="photos"
+      class="w-full py-17 bg-white flex flex-col overflow-hidden items-center text-black select-none"
+    >
+      <section class="text-4xl">图库</section>
+      <section class="w-10 h-1 bg-green-500 rounded-sm my-5"></section>
+      <section class="w-4/5 flex flex-wrap justify-center overflow-hidden">
+        <image-box
+          v-for="(item, index) in imgList"
+          :key="index"
+          :id="item.id"
+          :imgName="item.name"
+          :imgIntroduce="item.introduce"
+          :imgPath="item.path"
+        ></image-box>
+      </section>
+    </article>
+    <footer class="py-17 px-50 w-full flex flex-row flex-wrap justify-around">
+      <footer-link></footer-link>
+      <footer-link></footer-link>
+      <footer-link></footer-link>
+    </footer>
   </div>
 </template>
 
 <script>
 import NavBox from './widget/Navbox.vue'
-import axios from 'axios'
+import ShareBox from './widget/ShareBox.vue'
+import ImageBox from './widget/ImageBox.vue'
+import FooterLink from './widget/FooterLink.vue'
+import { getPoem } from '../axios.js'
+import { easeInOutCubic } from '../utils/animate.js'
+import { throttle, debounce } from "lodash/throttle";
 export default {
   components: {
-    NavBox
+    NavBox,
+    ShareBox,
+    ImageBox,
+    FooterLink,
   },
   data() {
     return {
@@ -42,22 +116,52 @@ export default {
         {
           id: 1,
           name: '首页',
-          path: '/home'
+          container: '#home'
         },
         {
           id: 2,
           name: '关于',
-          path: '/about'
+          container: '#about'
         },
         {
           id: 3,
-          name: '作品',
-          path: '/opus'
+          name: '分享',
+          container: '#share'
         },
         {
           id: 4,
           name: '图册',
-          path: '/photos'
+          container: '#photos'
+        }
+      ],
+      imgList: [
+        {
+          id: 1,
+          name: '壁纸',
+          introduce: '一些自己收集的电脑壁纸',
+          path: 'bizhi'
+        },
+        {
+          id: 2,
+          name: '手机壁纸',
+          introduce: '一些自己手机的手机壁纸',
+          path: 'shoujibizhi'
+        },
+        {
+          id: 3,
+          name: '个人',
+          introduce: '一些个人的照片存放',
+          path: 'selfphoto'
+        }
+      ],
+      shareList: [
+        {
+          id: 1,
+          name: '黑马电商后台管理系统',
+          imgPath: 'http://localhost:4000/src/assets/bground.jpg',
+          introduce: 'Vue+elementUI+Axios搭建',
+          tips: '仅作学习分享',
+          path: 'heima'
         }
       ],
       poem: {},
@@ -66,78 +170,56 @@ export default {
   },
   created() {
     this.getPoem()
-    let darkMode = localStorage.getItem("theme")
-    if (darkMode === "dark") enableDarkMode()
-    window.matchMedia("(prefers-color-scheme: dark)").addListener(e => (e.matches ? this.enableDarkMode() : this.disableDarkMode()))
   },
   beforeMount() {
-    // 设置title盒子的高度
+    // 设置title盒子的高
 
+  },
+  computed: {
+    currentHeight() {
+      return document.documentElement.clientHeight || window.innerHeight
+    }
   },
   methods: {
     async getPoem() {
-      const data = await axios.get('https://v1.jinrishici.com/all.json')
-      if (data.status === 200) {
-        this.poem = data.data
-      }
-      console.log(this.poem)
-    },
-    enableDarkMode() {
-      this.$store.commit('enableDarkMode')
-    },
-    disableDarkMode() {
-      this.$store.commit('disableDarkMode')
+      const { data: res } = await getPoem()
+      console.log(res)
+      this.poem = res
     },
     setThemeMode() {
-      let darkmode = localStorage.getItem('theme')
+      this.$nextTick(() => {
+        let darkmode = localStorage.getItem('theme')
+        if (darkmode === 'dark') {
+          document.documentElement.classList.remove('dark')
+          localStorage.setItem('theme', 'light')
+          this.isDark = false
+        } else {
+          localStorage.setItem('theme', 'dark')
+          document.documentElement.classList.add('dark')
+          this.isDark = true
+        }
+      })
+    },
+    scrollToNext() {
+      const beginTime = Date.now()
+      const beginValue = document.documentElement.scrollTop
+      const rAF = window.requestAnimationFrame
+      const frameFunc = () => {
+        const progress = (Date.now() - beginTime) / 1000
+        console.log(progress);
+        if (progress < 1) {
+          document.documentElement.scrollTop = beginValue + Math.ceil(this.currentHeight * easeInOutCubic(progress))
+          rAF(frameFunc)
+        } else {
+
+          document.documentElement.scrollTop = this.currentHeight
+        }
+      }
+      rAF(frameFunc)
     }
   },
 }
 </script>
 
 <style lang="less" scoped>
-.header {
-  // align-items: center;
-  .navBar {
-    width: 70vw;
-    margin: 0 auto;
-    height: 3.75rem;
-    display: flex;
-    display: -webkit-flex;
-    justify-content: space-between;
-    align-items: center;
-    h3 {
-      width: 2.5rem;
-      height: 2.5rem;
-      font-size: 0px;
-      border-radius: 0.625rem;
-      overflow: hidden;
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-    .menu-select {
-      display: flex;
-      display: -webkit-flex;
-      justify-content: space-between;
-      align-items: center;
-      .menu-select-box {
-        margin-left: 3vw;
-      }
-    }
-  }
-  .article {
-    text-align: center;
-    h3 {
-      font-size: 1.875rem;
-    }
-  }
-  .fotterJump {
-    text-align: center;
-    i {
-      font-size: 2.25rem;
-    }
-  }
-}
 </style>

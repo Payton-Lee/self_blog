@@ -1,7 +1,7 @@
 #app {
   background: url('../bground.jpg') no-repeat;
-  background-size: cover;
-  background-position: fixed;
+  background-size: auto;
+  background-attachment: fixed;
 }
 
 a {
@@ -28,14 +28,15 @@ a {
 
 @media (min-width: 640px) { 
   html {
+    font-size: 10px;
+  }
+}
+@media (min-width: 1024px) { 
+  html {
     font-size: 16px;
   }  
 }
-/* @media (min-width: 768px) { 
-  html {
-    font-size: 34px;
-  }
-} */
+
 /* @media (min-width: 1024px) { 
   html {
     font-size: 50px;
