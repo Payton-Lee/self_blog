@@ -27,6 +27,7 @@
       </header>
       <article class="text-center">
         <h3 class="text-3xl">Peyton的个人小站</h3>
+        <p>哈哈哈，我终于成功了，果然努力没有白费啊，哈哈哈哈哈</p>
         <p class="text-slate-200 hover:text-white duration-150 mt-2" @click="changePoem">/*{{ poem.content }}*/</p>
       </article>
       <footer class="text-center hover:text-white">
@@ -147,12 +148,12 @@ export default {
           introduce: '一些自己手机的手机壁纸',
           path: 'shoujibizhi'
         },
-        // {
-        //   id: 3,
-        //   name: '个人',
-        //   introduce: '一些个人的照片存放',
-        //   path: 'selfphoto'
-        // }
+        {
+          id: 3,
+          name: '个人',
+          introduce: '一些个人的照片存放',
+          path: 'selfphoto'
+        }
       ],
       shareList: [
         {
