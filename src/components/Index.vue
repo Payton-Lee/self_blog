@@ -147,12 +147,12 @@ export default {
           introduce: '一些自己手机的手机壁纸',
           path: 'shoujibizhi'
         },
-        {
-          id: 3,
-          name: '个人',
-          introduce: '一些个人的照片存放',
-          path: 'selfphoto'
-        }
+        // {
+        //   id: 3,
+        //   name: '个人',
+        //   introduce: '一些个人的照片存放',
+        //   path: 'selfphoto'
+        // }
       ],
       shareList: [
         {
