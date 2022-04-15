@@ -22,13 +22,12 @@
               :class="isDark ? 'icon-moonbyueliang' : 'icon-ai250'"
               @click="setThemeMode"
             ></nav-box>
-          </nav>
+          </nav>3
         </div>
       </header>
       <article class="text-center">
         <h3 class="text-3xl">Peyton的个人小站</h3>
-        <p>哈哈哈，我终于成功了，果然努力没有白费啊，哈哈哈哈哈</p>
-        <p class="text-slate-200 hover:text-white duration-150 mt-2" @click="changePoem">/*{{ poem.content }}*/</p>
+        <p class="text-slate-200  hover:(text-white) duration-150 mt-2" @click="changePoem">/*{{ poem.content }}*/</p>
       </article>
       <footer class="text-center hover:text-white">
         <i
