@@ -27,7 +27,7 @@
       </header>
       <article class="text-center">
         <h3 class="text-3xl">Peyton的个人小站</h3>
-        <p>/*{{ poem.content }}*/</p>
+        <p class="text-slate-200 hover:text-white duration-150 mt-2" @click="changePoem">/*{{ poem.content }}*/</p>
       </article>
       <footer class="text-center hover:text-white">
         <i
@@ -185,6 +185,9 @@ export default {
       const { data: res } = await getPoem()
       console.log(res)
       this.poem = res
+    },
+    changePoem() {
+      this.getPoem()
     },
     setThemeMode() {
       this.$nextTick(() => {
