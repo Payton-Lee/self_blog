@@ -42,6 +42,6 @@ export default {
 
 <style lang="less" scoped>
 .box {
-  @apply flex flex-col content-center w-17 h-10 text-center relative leading-10 select-none rounded-md transition hover:(bg-white bg-opacity-35) hover:after:(content-[''] w-8 absolute h-0.5 bg-gray-50 bottom-1 rounded-sm inset-x-0 mx-auto);
+  @apply flex flex-col content-center w-17 h-10 text-center relative leading-10 select-none rounded-md transition duration-400 hover:(bg-white bg-opacity-35) hover:after:(content-[''] w-8 absolute h-0.5 bg-gray-50 bottom-1 rounded-sm inset-x-0 mx-auto);
 }
 </style>

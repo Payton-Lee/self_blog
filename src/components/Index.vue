@@ -13,12 +13,12 @@
               :navContainer="item.container"></nav-box>
             <nav-box class="iconfont" :class="isDark ? 'icon-moonbyueliang' : 'icon-ai250'" @click="setThemeMode">
             </nav-box>
-          </nav>3
+          </nav>
         </div>
       </header>
       <article class="flex flex-col items-center group">
         <h3 class="text-3xl">Peyton的个人小站</h3>
-        <p class="text-slate-200  group-hover:(text-white) duration-150 mt-2" @click="changePoem">/*{{ poem.content }}*/</p>
+        <p class="text-slate-200  group-hover:(text-white) duration-150 mt-2" @click.stop="changePoem">/*{{ poem.content }}*/</p>
         <div class="w-90 text-right text-white opacity-0 group-hover:opacity-100 transition duration-400">——     {{ poem.author }}</div>
       </article>
       <footer class="text-center hover:text-white">
